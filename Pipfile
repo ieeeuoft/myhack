@@ -1,0 +1,49 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = false
+name = "pip_conf_index_global"
+
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = false
+name = "pip_conf_index_global"
+
+[packages]
+structlog = "*"
+aiohttp = {extras = ["speedups"], version = "*"}
+cchardet = "*"
+aiodns = "*"
+aiofiles = "*"
+scrapy = "*"
+unstructured = {extras = ["local-inference"], version = "*"}
+advertools = "*"
+beautifulsoup4 = "*"
+pillow = "*"
+scrapeops-scrapy = "*"
+scrapy-splash = "*"
+jupyter = "*"
+jupyterlab = "*"
+httpx = {extras = ["brotli", "http2"], version = "*"}
+pymongo = "*"
+opencv-python = "==4.5.5.62"
+rtree = "*"
+cleanlab = "*"
+super-gradients = "==3.1.2"
+open-clip-torch = "*"
+pycocotools = "*"
+matplotlib = "*"
+onnxruntime = "*"
+onnx = "*"
+torch-tensorrt = "*"
+faiss-cpu = "*"
+bounding-box = "*"
+pygraphviz = "*"
+ultimate-sitemap-parser = "*"
+plotly = "*"
+xformers = "*"
+segment-anything = {git = "https://github.com/facebookresearch/segment-anything.git"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
