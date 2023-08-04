@@ -1,5 +1,4 @@
 import pandas as pd
-import openpyxl
 import os
 import cv2 as cv
 import shutil
