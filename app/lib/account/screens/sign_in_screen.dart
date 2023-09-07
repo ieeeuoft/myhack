@@ -27,7 +27,7 @@ class SignInScreenState extends State<SignInScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Row(),
+               Row(),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
