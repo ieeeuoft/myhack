@@ -47,15 +47,19 @@ class ProfilePage extends StatelessWidget {
                           );
                         },
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Provider.of<ProfileViewModel>(context, listen: false)
-                              .updateUserName('Jane Doe');
-                        },
-                        child: const Text('Change Name'),
-                      ),
+                      Builder(
+                        builder:(context){
+                          return ElevatedButton(
+                            onPressed: () {
+                              Provider.of<ProfileViewModel>(context, listen: false)
+                                  .updateUserName('Jane Doe');
+                            },
+                            child: const Text('Change Name'),
+                          );
+                        }, 
+                      )
                     ],
-                  ),
+                  ),  
                 ),
               ),
             );
