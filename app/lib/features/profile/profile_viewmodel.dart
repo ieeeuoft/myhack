@@ -38,6 +38,9 @@ class ProfileViewModel with ChangeNotifier {
           id: _userModel!.id,
           name: newUserName,
           email: _userModel!.email,
+          program: _userModel!.program,
+          school: _userModel!.school,
+          year: _userModel!.year,
         );
         notifyListeners();
       }
