@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'profile_viewmodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:app/core/models/user_model.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -48,18 +48,49 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                       Builder(
-                        builder:(context){
+                        builder: (context) {
                           return ElevatedButton(
                             onPressed: () {
-                              Provider.of<ProfileViewModel>(context, listen: false)
+                              Provider.of<ProfileViewModel>(context,
+                                      listen: false)
                                   .updateUserName('Jane Doe');
                             },
                             child: const Text('Change Name'),
                           );
-                        }, 
-                      )
+                        },
+                      ),
+                      Builder(builder: (context) {
+                        return ElevatedButton(
+                          // Add User Button
+                          onPressed: () {
+                            UserModel newUser = UserModel(
+                              id: user.uid,
+                              name: 'Dummy Name',
+                              email: 'dummy@email.com',
+                              program: 'Dummy Program',
+                              school: 'Dummy School',
+                              year: 'Dummy Year',
+                            );
+                            Provider.of<ProfileViewModel>(context,
+                                    listen: false)
+                                .addUser(newUser);
+                          },
+                          child: const Text('Add User'),
+                        );
+                      }),
+                      Builder(builder: (context) {
+                        return ElevatedButton(
+                          // Delete User Button
+                          onPressed: () {
+                            Provider.of<ProfileViewModel>(context,
+                                    listen: false)
+                                .deleteUser();
+                          },
+                          child: const Text('Delete User'),
+                        );
+                      })
                     ],
-                  ),  
+                  ),
                 ),
               ),
             );
