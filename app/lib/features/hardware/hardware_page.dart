@@ -17,7 +17,7 @@ class HardwarePage extends StatefulWidget {
 }
 
 class _HardwarePageState extends State<HardwarePage> {
-  int selectedImageIndex = 0;
+  int selectedIndex = 0;
 
   List<String> images = [
     'arduino.jpg',
@@ -27,7 +27,7 @@ class _HardwarePageState extends State<HardwarePage> {
 
   void selectImage(int index) {
     setState(() {
-      selectedImageIndex = index;
+      selectedIndex = index;
     });
   }
   
@@ -46,41 +46,45 @@ class _HardwarePageState extends State<HardwarePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 20),
             Center(
               child: Image.asset(
-                './arduino.jpg',
-                width: 200,
-                height: 200,
+                images[selectedIndex],
+                width: 1000,
+                height: 300,
               ),
             ),
-        Center(
-          child: SizedBox(
-            height: 100,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: images.length,
-              itemExtent: 100, 
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    selectImage(index);
-                  },
-                  child: Container( 
-                    width: 100, 
-                    child: Center( 
-                      child: Image.asset(
-                        images[index],
-                        width: 100,
-                        height: 100,
-                      ),
+        Expanded(
+          flex: 2,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: images.length,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {
+                  selectImage(index);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: index == selectedIndex
+                              ? Colors.blue
+                              : Colors.transparent)
+                    ),
+                  
+                    child: Image.asset(
+                      images[index],
+                      width: 100,
+                      height: 100,
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
-
             const SizedBox(height: 10),
             const Text(
               'Description:',
@@ -89,6 +93,7 @@ class _HardwarePageState extends State<HardwarePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 10),
             const Text(
               'Description here...',
               style: TextStyle(fontSize: 14.0),
@@ -105,7 +110,7 @@ class _HardwarePageState extends State<HardwarePage> {
               text: TextSpan(
                 children: <TextSpan>[
                   const TextSpan(
-                    text: '• ',
+                    text: '   • ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0,
@@ -117,7 +122,7 @@ class _HardwarePageState extends State<HardwarePage> {
                     style: DefaultTextStyle.of(context).style, 
                   ),
                   const TextSpan(
-                    text: '• ',
+                    text: '   • ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0,
