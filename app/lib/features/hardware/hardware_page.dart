@@ -70,7 +70,7 @@ class _HardwarePageState extends State<HardwarePage> {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: index == selectedIndex
-                              ? Colors.blue
+                              ? Colors.black
                               : Colors.transparent)
                     ),
                   
