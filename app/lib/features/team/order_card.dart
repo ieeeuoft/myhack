@@ -1,3 +1,4 @@
+import "package:app/features/notifications/notifications_page.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 
@@ -7,61 +8,92 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            body: Container(
-      padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
-      height: 220,
-      width: double.maxFinite,
-      child: Card(
-        elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(CARD_RADIUS),
-        ),
-        child: Stack(children: [
-          Container(
-            width: 20,
-            decoration: BoxDecoration(
-              color: Colors.amber,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(CARD_RADIUS),
-                bottomLeft: Radius.circular(CARD_RADIUS),
+      home: Scaffold(
+        body: InkWell(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  NotificationsPage(), // TODO Replace with OrderDetail Page, temporary for testing
+            ));
+          },
+          child: Dismissible(
+            key: UniqueKey(),
+            direction: DismissDirection.endToStart,
+            onDismissed: (direction) {
+              if (direction == DismissDirection.endToStart) {
+                // Implement the logic to delete the order card here
+              }
+            },
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                  size: 40,
+                ),
+              ),
+            ),
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+              height: 220,
+              width: double.maxFinite,
+              child: Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(CARD_RADIUS),
+                ),
+                child: Stack(children: [
+                  Container(
+                    width: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(CARD_RADIUS),
+                        bottomLeft: Radius.circular(CARD_RADIUS),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Stack(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: [
+                                    hardwareImage(),
+                                    SizedBox(
+                                      height: 10,
+                                      width: 10,
+                                    ),
+                                    hardwareName(),
+                                    Spacer(),
+                                    hardwareTime(),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ))
+                      ],
+                    ),
+                  )
+                ]),
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Stack(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            hardwareImage(),
-                            SizedBox(
-                              height: 10,
-                              width: 10,
-                            ),
-                            hardwareName(),
-                            Spacer(),
-                            hardwareTime(),
-                            SizedBox(
-                              width: 10,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ))
-              ],
-            ),
-          )
-        ]),
+        ),
       ),
-    )));
+    );
   }
 
   Widget hardwareImage() {

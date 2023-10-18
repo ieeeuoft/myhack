@@ -1,3 +1,4 @@
+import 'package:app/features/notifications/notifications_page.dart';
 import 'package:app/features/team/order_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -81,13 +82,15 @@ class _TeamPageState extends State<TeamPage> {
                 const Spacer(),
                 IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            NotificationsPage())); //TODO: Change page to Add Order Page
+                  },
                 )
               ],
             ),
-            Expanded(
-              child: OrderCard(),
-            )
+            Expanded(child: OrderCard())
           ],
         ),
       ),
