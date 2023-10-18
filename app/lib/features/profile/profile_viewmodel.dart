@@ -68,6 +68,7 @@ class ProfileViewModel with ChangeNotifier {
       }
     }
   }
+  
   Future<void> deleteUser() async {
   if (_user != null) {
     // Delete user data from Firestore
