@@ -2,6 +2,7 @@ import 'package:app/app/app_routes.dart';
 import 'package:app/features/home/home_page.dart';
 import 'package:app/features/notifications/notifications_page.dart';
 import 'package:app/features/profile/profile_page.dart';
+import 'package:app/features/team/team_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-enum AppTab { Home, Notification, Profile }
+enum AppTab { Home, Notification, Team, Profile }
 
 class MainScaffold extends StatefulWidget {
   @override
@@ -49,9 +50,13 @@ class _MainScaffoldState extends State<MainScaffold> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.notifications),
+          //   label: 'Notifications',
+          // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            icon: Icon(Icons.group),
+            label: 'Team',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -69,8 +74,10 @@ class _MainScaffoldState extends State<MainScaffold> {
     switch (_selectedTab) {
       case AppTab.Home:
         return const HomePage();
-      case AppTab.Notification:
-        return const NotificationsPage();
+      // case AppTab.Notification:
+      //   return const NotificationsPage();
+      case AppTab.Team:
+        return const TeamPage();
       case AppTab.Profile:
         return const ProfilePage();
       default:
