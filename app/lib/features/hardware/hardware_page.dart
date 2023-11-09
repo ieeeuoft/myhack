@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'hardware_viewmodel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:ui' as ui;
 
 
 
@@ -65,7 +61,7 @@ class _HardwarePageState extends State<HardwarePage> {
                   selectImage(index);
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
