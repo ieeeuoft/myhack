@@ -35,11 +35,11 @@ class PageViewer extends StatelessWidget {
               icon: Icon(Icons.person)
             ),
           ],
-          labelColor: Colors.blue,
-          unselectedLabelColor: Colors.black,
-          indicatorColor: Colors.blue,
+          labelColor: Color(0xff2B7BBC),
+          unselectedLabelColor: Color(0xff141D1D),
+          indicatorColor: Color(0xff2B7BBC),
         ),
-        backgroundColor: Colors.grey,
+        backgroundColor: Color(0xffEFEFEF),
       ),
     );
     }
