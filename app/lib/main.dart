@@ -1,3 +1,4 @@
+import 'package:app/page_viewer.dart';
 import 'package:app/app/app_routes.dart';
 import 'package:app/features/home/home_page.dart';
 import 'package:app/features/notifications/notifications_page.dart';
@@ -20,71 +21,71 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainScaffold(),
+      home: const PageViewer(),
       routes: AppRoutes.routes,
     );
   }
 }
-enum AppTab { Home, Notification, Team, Profile }
+// enum AppTab { Home, Notification, Team, Profile }
 
-class MainScaffold extends StatefulWidget {
-  @override
-  _MainScaffoldState createState() => _MainScaffoldState();
-}
+// class MainScaffold extends StatefulWidget {
+//   @override
+//   _MainScaffoldState createState() => _MainScaffoldState();
+// }
 
-class _MainScaffoldState extends State<MainScaffold> {
-  AppTab _selectedTab = AppTab.Home;
+// class _MainScaffoldState extends State<MainScaffold> {
+//   AppTab _selectedTab = AppTab.Home;
 
-  void _onTabTapped(int index) {
-    setState(() {
-      _selectedTab = AppTab.values[index];
-    });
-  }
+//   void _onTabTapped(int index) {
+//     setState(() {
+//       _selectedTab = AppTab.values[index];
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.notifications),
-          //   label: 'Notifications',
-          // ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Team',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedTab.index,
-        onTap: _onTabTapped,
-      ),
-      body: _buildBody(),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       bottomNavigationBar: BottomNavigationBar(
+//         items: const <BottomNavigationBarItem>[
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.home),
+//             label: 'Home',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.notifications),
+//             label: 'Notifications',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.group),
+//             label: 'Team',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.person),
+//             label: 'Profile',
+//           ),
+//         ],
+//         currentIndex: _selectedTab.index,
+//         onTap: _onTabTapped,
+//       ),
+//       body: _buildBody(),
+//     );
+//   }
 
-  Widget _buildBody() {
-    switch (_selectedTab) {
-      case AppTab.Home:
-        return const HomePage();
-      // case AppTab.Notification:
-      //   return const NotificationsPage();
-      case AppTab.Team:
-        return const TeamPage();
-      case AppTab.Profile:
-        return const ProfilePage();
-      default:
-        return Container();
-    }
-  }
-}
+//   Widget _buildBody() {
+//     switch (_selectedTab) {
+//       case AppTab.Home:
+//         return const HomePage();
+//       case AppTab.Notification:
+//         return const NotificationsPage();
+//       case AppTab.Team:
+//         return const TeamPage();
+//       case AppTab.Profile:
+//         return const ProfilePage();
+//       default:
+//         return Container();
+//     }
+//   }
+// }
 
 // class AuthService {
 //   final FirebaseAuth _auth = FirebaseAuth.instance;
