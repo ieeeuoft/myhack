@@ -1,11 +1,10 @@
 import 'package:app/features/notifications/notifications_page.dart';
 import 'package:app/features/team/order_card.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 
 class TeamPage extends StatefulWidget {
-  const TeamPage({Key? key}) : super(key: key);
+  const TeamPage({super.key});
 
   @override
   _TeamPageState createState() => _TeamPageState();
@@ -33,7 +32,7 @@ class _TeamPageState extends State<TeamPage> {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl =
+    const imageUrl =
         "https://t4.ftcdn.net/jpg/02/24/86/95/360_F_224869519_aRaeLneqALfPNBzg0xxMZXghtvBXkfIA.jpg";
 
     return MaterialApp(
@@ -46,7 +45,7 @@ class _TeamPageState extends State<TeamPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ProfilePicture(
+                  const ProfilePicture(
                     name: 'User 1',
                     role: 'Team Member',
                     radius: 50,
@@ -69,8 +68,8 @@ class _TeamPageState extends State<TeamPage> {
             ),
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 32.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 32.0),
                   child: Text(
                     'Orders',
                     style: TextStyle(
@@ -81,16 +80,16 @@ class _TeamPageState extends State<TeamPage> {
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            NotificationsPage())); //TODO: Change page to Add Order Page
+                            const NotificationsPage())); //TODO: Change page to Add Order Page
                   },
                 )
               ],
             ),
-            Expanded(child: OrderCard())
+            const Expanded(child: OrderCard())
           ],
         ),
       ),
@@ -107,13 +106,13 @@ class _TeamPageState extends State<TeamPage> {
                     width: 200,
                     child: TextField(
                         controller: _teamNameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Enter a team name',
                         )),
                   ),
                   IconButton(
-                    icon: Icon(Icons.save),
+                    icon: const Icon(Icons.save),
                     onPressed: () {
                       setState(() {
                         _teamName = _teamNameController.text;
@@ -127,13 +126,13 @@ class _TeamPageState extends State<TeamPage> {
                 children: [
                   Text(
                     _teamName,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.edit),
+                    icon: const Icon(Icons.edit),
                     onPressed: () {
                       setState(() {
                         _isEditing = true;
@@ -166,9 +165,9 @@ class _TeamPageState extends State<TeamPage> {
                       .cover, // Adjust the fit as needed (cover, contain, etc.)
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                   width: 5), // Adjust the spacing between the image and text
-              Text(
+              const Text(
                 'User 2',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
@@ -176,12 +175,12 @@ class _TeamPageState extends State<TeamPage> {
                   color: Colors.white, // Adjust the text color
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                   width: 10), // Adjust the spacing between the image and text
             ],
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
       ],
     );
   }

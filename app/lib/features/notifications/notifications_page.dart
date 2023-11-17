@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'notifications_viewmodel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
