@@ -1,6 +1,5 @@
 import 'package:app/app/app_routes.dart';
 import 'package:app/features/home/home_page.dart';
-import 'package:app/features/notifications/notifications_page.dart';
 import 'package:app/features/profile/profile_page.dart';
 import 'package:app/features/blog/blog_page_test.dart';
 import 'package:app/features/team/team_page.dart';
@@ -13,15 +12,17 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainScaffold(),
+      home: const MainScaffold(),
       routes: AppRoutes.routes,
     );
   }
@@ -29,6 +30,8 @@ class MyApp extends StatelessWidget {
 enum AppTab { Home, Blog, Team, Profile }
 
 class MainScaffold extends StatefulWidget {
+  const MainScaffold({super.key});
+
   @override
   _MainScaffoldState createState() => _MainScaffoldState();
 }
