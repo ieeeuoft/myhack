@@ -36,9 +36,9 @@ class _GetStartedButtonState extends State<GetStartedButton> {
               borderRadius: BorderRadius.circular(10),
               color: const Color.fromARGB(255, 224, 227, 231),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Text(
                   "Get Started",
                   style: TextStyle(

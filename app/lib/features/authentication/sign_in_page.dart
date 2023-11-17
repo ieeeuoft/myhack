@@ -27,7 +27,7 @@ class SignInPageState extends State<SignInPage> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Row(),
+              Row(),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

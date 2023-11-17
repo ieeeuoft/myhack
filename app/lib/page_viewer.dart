@@ -1,3 +1,4 @@
+import 'package:app/features/blog/blog_page.dart';
 import 'package:app/features/home/home_page.dart';
 import 'package:app/features/notifications/notifications_page.dart';
 import 'package:app/features/profile/profile_page.dart';
@@ -15,7 +16,7 @@ class PageViewer extends StatelessWidget {
       body: TabBarView(
         children:[
           HomePage(),
-          NotificationsPage(),
+          BlogPage(),
           TeamPage(),
           ProfilePage(),
         ]
@@ -26,7 +27,7 @@ class PageViewer extends StatelessWidget {
               icon: Icon(Icons.home)
             ),
             Tab(
-              icon: Icon(Icons.notifications)
+              icon: Icon(Icons.book)
             ),
             Tab(
               icon: Icon(Icons.group)
