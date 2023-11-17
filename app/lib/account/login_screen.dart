@@ -40,28 +40,28 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         bottom: false,
         child: loadingBallAppear
-            ? Padding(
+            ? const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30.0),
                 child: MessagesScreen())
             : Padding(
-                padding: EdgeInsets.symmetric(horizontal: 50.0),
+                padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 70),
+                      const SizedBox(height: 70),
                       TweenAnimationBuilder<double>(
-                        duration: Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         tween: Tween(begin: 1, end: _elementsOpacity),
                         builder: (_, value, __) => Opacity(
                           opacity: value,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.flutter_dash,
+                              const Icon(Icons.flutter_dash,
                                   size: 60, color: Color(0xff21579C)),
-                              SizedBox(height: 25),
-                              Text(
+                              const SizedBox(height: 25),
+                              const Text(
                                 "Welcome,",
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 35),
@@ -76,19 +76,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           children: [
                             EmailField(
                                 fadeEmail: _elementsOpacity == 0,
                                 emailController: emailController),
-                            SizedBox(height: 40),
+                            const SizedBox(height: 40),
                             PasswordField(
                                 fadePassword: _elementsOpacity == 0,
                                 passwordController: passwordController),
-                            SizedBox(height: 60),
+                            const SizedBox(height: 60),
                             GetStartedButton(
                               elementsOpacity: _elementsOpacity,
                               onTap: () {
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               onAnimationEnd: () async {
                                 await Future.delayed(
-                                    Duration(milliseconds: 500));
+                                    const Duration(milliseconds: 500));
                                 setState(() {
                                   loadingBallAppear = true;
                                 });

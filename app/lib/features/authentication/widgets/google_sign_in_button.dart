@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:app/account/screens/user_info_screen.dart';
 import 'package:app/account/utils/authentication.dart';
 
 class GoogleSignInButton extends StatelessWidget {
@@ -20,7 +18,7 @@ class GoogleSignInButton extends StatelessWidget {
 
         if (userCredential == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('Sign in failed'),
             ),
           );

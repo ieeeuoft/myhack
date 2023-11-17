@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginWithGoogle extends StatefulWidget {
-  const LoginWithGoogle({Key? key}) : super(key: key);
+  const LoginWithGoogle({super.key});
 
   @override
   _LoginWithGoogleState createState() => _LoginWithGoogleState();
@@ -16,7 +16,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login With Google"),
+        title: const Text("Login With Google"),
       ),
       body: Container(
         child: Column(
@@ -26,14 +26,14 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text("User Email: "), Text(userEmail)],
+                children: [const Text("User Email: "), Text(userEmail)],
               ),
             ),
             ElevatedButton(onPressed: () async {
               await signInWithGoogle();
 
               setState(() {});
-            }, child: Text("Login with google")),
+            }, child: const Text("Login with google")),
 
             ElevatedButton(onPressed: () async {
               await FirebaseAuth.instance.signOut();
@@ -42,7 +42,7 @@ class _LoginWithGoogleState extends State<LoginWithGoogle> {
               setState(() {
 
               });
-            }, child: Text("Logout"))
+            }, child: const Text("Logout"))
           ],
         ),
       ),
