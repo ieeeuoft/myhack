@@ -1,6 +1,5 @@
 import 'package:app/features/blog/blog_page.dart';
 import 'package:app/features/home/home_page.dart';
-import 'package:app/features/notifications/notifications_page.dart';
 import 'package:app/features/profile/profile_page.dart';
 import 'package:app/features/team/team_page.dart';
 import 'package:flutter/material.dart';
