@@ -4,9 +4,26 @@ import 'package:provider/provider.dart';
 import 'profile_viewmodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:app/core/models/user_model.dart';
+import 'package:app/features/profile/profile_widget.dart';
+import 'edit_profile_page.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+  @override
+  State<StatefulWidget> createState() {
+    return _ProfilePage();
+  }
+}
+
+class _ProfilePage extends State<ProfilePage> {
+  void editProfile() {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User user = auth.currentUser!;
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => EditProfile(user: user));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +52,24 @@ class ProfilePage extends StatelessWidget {
                   title: const Text('Profile'),
                 ),
                 body: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: ListView(children: [
+                    const SizedBox(height: 30),
+                    ProfileWidget(
+                      imagePath:
+                          'https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
+                      onClicked: editProfile,
+                      isEdit: false,
+                    ),
+                    const SizedBox(height: 20),
+                    Text(user.displayName.toString()),
+                    Text(user.email.toString()),
+
+                    ElevatedButton(
+                        onPressed: editProfile, child: const Text('Edit'))
+                    //Text(user.school.toString()),
+                  ]
+
+                      /*mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('User Name:'),
                       Consumer<ProfileViewModel>(
@@ -89,8 +122,8 @@ class ProfilePage extends StatelessWidget {
                           child: const Text('Delete User'),
                         );
                       })
-                    ],
-                  ),
+                    ],*/
+                      ),
                 ),
               ),
             );

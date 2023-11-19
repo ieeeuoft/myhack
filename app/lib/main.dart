@@ -1,5 +1,10 @@
 import 'package:app/page_viewer.dart';
 import 'package:app/app/app_routes.dart';
+import 'package:app/features/home/home_page.dart';
+import 'package:app/features/notifications/notifications_page.dart';
+import 'package:app/features/profile/profile_page.dart';
+import 'package:app/features/team/team_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -33,11 +38,63 @@ class MyApp extends StatelessWidget {
 // class _MainScaffoldState extends State<MainScaffold> {
 //   AppTab _selectedTab = AppTab.Home;
 
-//   void _onTabTapped(int index) {
-//     setState(() {
-//       _selectedTab = AppTab.values[index];
-//     });
-//   }
+  void _onTabTapped(int index) {
+    setState(() {
+      _selectedTab = AppTab.values[index];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+
+          //Was commented out
+          BottomNavigationBarItem(
+             icon: Icon(Icons.notifications),
+             label: 'Notifications',
+          ),
+          
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Team',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          
+        ],
+        currentIndex: _selectedTab.index,
+        onTap: _onTabTapped,
+      ),
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
+    switch (_selectedTab) {
+      case AppTab.Home:
+        return const HomePage();
+
+      //Was commented out
+      case AppTab.Notification:
+        return const NotificationsPage();
+      
+      case AppTab.Team:
+        return const TeamPage();
+      case AppTab.Profile:
+        return const ProfilePage();
+      default:
+        return Container();
+    }
+  }
+}
 
 // class AuthService {
 //   final FirebaseAuth _auth = FirebaseAuth.instance;
