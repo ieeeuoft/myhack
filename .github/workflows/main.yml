@@ -20,7 +20,7 @@ jobs:
           flutter-version: '3.13.9'
       - name: Setup
         run: | 
-          cd ../app
+          cd ..
           pwd
       - name: Run Flutter Commands
         run: | 
