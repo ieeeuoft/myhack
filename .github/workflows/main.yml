@@ -21,10 +21,9 @@ jobs:
       - name: Setup
         run: |
           cd app
-          ls
       - name: Run Flutter Commands
         run: | 
-          flutter --disable-telemetry --target=/Users/runner/work/myhack/myhack/app
+          flutter --disable-telemetry
           flutter pub get
           flutter test
           flutter build apk --debug --split-per-abi
