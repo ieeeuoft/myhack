@@ -1,0 +1,33 @@
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+name: "MyHack Build & Release"
+jobs:
+  build:
+    name: MyHack Build & Release
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '3.13.9'
+      - name: Run Flutter Commands
+        run: | 
+          cd app
+          flutter config --no-analytics
+          flutter pub get
+          flutter test
+          flutter build apk --debug --split-per-abi
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/debug/*"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKEN }}
