@@ -19,9 +19,8 @@ jobs:
         with:
           flutter-version: '3.13.9'
       - name: Setup
-        run: | 
-          cd ..
-          pwd
+        run: |
+          cd app
       - name: Run Flutter Commands
         run: | 
           flutter --disable-telemetry
