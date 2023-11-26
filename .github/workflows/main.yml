@@ -18,9 +18,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '3.13.9'
-      - name: Setup
-        run: |
-          cd app
       - name: Run Flutter Commands
         run: | 
           cd app
