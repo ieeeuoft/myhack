@@ -19,12 +19,9 @@ jobs:
         with:
           flutter-version: '3.13.9'
       - name: Setup
-        run: | 
-          cd ..
+        run: |
+          cd app
           pwd
-          ls
-          cd myhack
-          ls
       - name: Run Flutter Commands
         run: | 
           flutter --disable-telemetry
