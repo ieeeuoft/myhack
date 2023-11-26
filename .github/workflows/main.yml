@@ -23,6 +23,8 @@ jobs:
           cd ..
           pwd
           ls
+          cd myhack
+          ls
       - name: Run Flutter Commands
         run: | 
           flutter --disable-telemetry
