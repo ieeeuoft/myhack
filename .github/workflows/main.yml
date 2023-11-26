@@ -23,7 +23,8 @@ jobs:
           cd app
       - name: Run Flutter Commands
         run: | 
-          flutter --disable-telemetry
+          cd app
+          flutter config --no-analytics
           flutter pub get
           flutter test
           flutter build apk --debug --split-per-abi
