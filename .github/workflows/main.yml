@@ -1,3 +1,5 @@
+name: "MyHack Build & Release"
+
 on:
   pull_request:
     branches:
@@ -5,11 +7,15 @@ on:
   push:
     branches:
       - main
-name: "MyHack Build & Release"
+
 jobs:
   build:
     name: MyHack Build & Release
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
