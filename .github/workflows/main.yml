@@ -38,12 +38,17 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-      - name: Run Flutter and iOS Build Commands
+      - name: Run Flutter and Android Build Commands
         run: | 
           cd app
           flutter pub get
           flutter clean
           flutter build ios --no-codesign
+      - name: Upload iOS IPA
+        uses: actions/upload-artifact@v2
+        with:
+          name: ios-artifact
+          path: app/build/ios/iphoneos/Runner.app
   build_android:
     name: Build Flutter (Android)
     needs: [flutter_test]
@@ -62,3 +67,18 @@ jobs:
           flutter pub get
           flutter clean
           flutter build appbundle
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-artifact
+          path: app/build/app/outputs/flutter-apk/app-debug.apk
+  release:
+    name: Push to Releases
+    needs: [build_ios, build_android, flutter_test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/debug/*"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.TOKEN }}
