@@ -36,12 +36,9 @@ jobs:
         with:
           flutter-version: ${{ matrix.flutter_version }}
 
-      - name: Set working directory
-        run: cd app
-        shell: bash
-
       - name: Run Flutter Commands
-        run: | 
+        run: |
+          cd app
           flutter config --no-analytics
           flutter pub get
           flutter build apk --debug --split-per-abi
