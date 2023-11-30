@@ -43,7 +43,7 @@ jobs:
           cd app
           flutter pub get
           flutter clean
-          flutter build ios
+          flutter build ios --no-codesign
   build_android:
     name: Build Flutter (Android)
     needs: [flutter_test]
