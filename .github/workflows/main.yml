@@ -38,7 +38,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-      - name: Run Flutter and Android Build Commands
+      - name: Run Flutter and iOS Build Commands
         run: | 
           cd app
           flutter pub get
@@ -56,34 +56,34 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-      - name: Run Flutter and iOS Build Commands
+      - name: Run Flutter and Android Build Commands
         run: | 
           cd app
           flutter pub get
           flutter clean
           flutter build appbundle
-  release:
-    name: Push to Releases
-    needs: [build_ios, build_android, flutter_test]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Upload iOS IPA
-        uses: actions/upload-artifact@v2
-        with:
-          name: ios-artifact
-          path: app/build/ios/iphoneos/Runner.app
+  # release:
+  #   name: Push to Releases
+  #   needs: [build_ios, build_android, flutter_test]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Upload iOS IPA
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: ios-artifact
+  #         path: app/build/ios/iphoneos/Runner.app
 
-      - name: Upload Android APK
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-artifact
-          path: app/build/app/outputs/flutter-apk/app-release.apk
+  #     - name: Upload Android APK
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: android-artifact
+  #         path: app/build/app/outputs/flutter-apk/app-release.apk
 
-      - name: Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: |
-            ios-artifact/**/*.ipa
-            android-artifact/**/*.apk
-          tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.TOKEN }}
+  #     - name: Release
+  #       uses: ncipollo/release-action@v1
+  #       with:
+  #         artifacts: |
+  #           ios-artifact/**/*.ipa
+  #           android-artifact/**/*.apk
+  #         tag: v1.0.${{ github.run_number }}
+  #         token: ${{ secrets.TOKEN }}
