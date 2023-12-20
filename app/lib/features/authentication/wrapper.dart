@@ -3,14 +3,15 @@ import 'package:app/features/profile/profile_page.dart';
 import 'package:app/features/team/team_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app/features/authentication/widgets/google_sign_in_button.dart';
+import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {
   final Widget? child;
-  final bool switchBetween = false;
   const Wrapper({super.key, this.child});
   @override
   Widget build(BuildContext context) {
-    if(switchBetween)
+    String? user = Provider.of<String?>(context);
+    if(user != null)
       return child??Placeholder();
     return Stack(
       children: [
