@@ -37,6 +37,7 @@ class ProfileViewModel with ChangeNotifier {
         _userModel = UserModel(
           id: _userModel!.id,
           name: newUserName,
+          /*image: profile_image,*/
           email: _userModel!.email,
           program: _userModel!.program,
           school: _userModel!.school,
