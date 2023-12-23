@@ -38,7 +38,7 @@ class _GetStartedButtonState extends State<GetStartedButton> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Text(
                   "Get Started",
                   style: TextStyle(

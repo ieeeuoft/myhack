@@ -1,4 +1,3 @@
-import 'package:app/account/screens/user_info_screen.dart';
 import 'package:app/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +81,7 @@ class SignInPageState extends State<SignInPage> {
                             });
                           }
                         }
-                        return GoogleSignInButton();
+                        return const GoogleSignInButton();
                       },
                     );
                   }

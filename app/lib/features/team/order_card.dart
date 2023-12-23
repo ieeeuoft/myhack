@@ -1,10 +1,11 @@
 import "package:app/features/notifications/notifications_page.dart";
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 
-final double CARD_RADIUS = 20;
+const double CARD_RADIUS = 20;
 
 class OrderCard extends StatelessWidget {
+  const OrderCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,7 +14,7 @@ class OrderCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) =>
-                  NotificationsPage(), // TODO Replace with OrderDetail Page, temporary for testing
+                  const NotificationsPage(), // TODO Replace with OrderDetail Page, temporary for testing
             ));
           },
           child: Dismissible(
@@ -27,8 +28,8 @@ class OrderCard extends StatelessWidget {
             background: Container(
               color: Colors.red,
               alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16.0),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 16.0),
                 child: Icon(
                   Icons.delete,
                   color: Colors.white,
@@ -37,7 +38,7 @@ class OrderCard extends StatelessWidget {
               ),
             ),
             child: Container(
-              padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
               height: 220,
               width: double.maxFinite,
               child: Card(
@@ -48,7 +49,7 @@ class OrderCard extends StatelessWidget {
                 child: Stack(children: [
                   Container(
                     width: 20,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.amber,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(CARD_RADIUS),
@@ -70,14 +71,14 @@ class OrderCard extends StatelessWidget {
                                 Row(
                                   children: [
                                     hardwareImage(),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                       width: 10,
                                     ),
                                     hardwareName(),
-                                    Spacer(),
+                                    const Spacer(),
                                     hardwareTime(),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                   ],
@@ -114,7 +115,7 @@ class OrderCard extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: RichText(
-        text: TextSpan(
+        text: const TextSpan(
           text: "Arduino Uno",
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
@@ -132,7 +133,7 @@ class OrderCard extends StatelessWidget {
   }
 
   Widget hardwareTime() {
-    return Align(
+    return const Align(
       alignment: Alignment.topRight,
       child: Text(
         "9m ago",
