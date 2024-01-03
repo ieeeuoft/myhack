@@ -1,7 +1,9 @@
 import 'package:app/features/notifications/notifications_page.dart';
 import 'package:app/features/team/order_card.dart';
+import 'package:app/features/team/team_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
+import 'package:provider/provider.dart';
 
 class TeamPage extends StatefulWidget {
   const TeamPage({super.key});
