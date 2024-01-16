@@ -13,17 +13,18 @@ class TeamPage extends StatefulWidget {
 }
 
 class _TeamPageState extends State<TeamPage> {
-  String _teamName = 'Your Team Name'; // Initial team name
-
-  TextEditingController _teamNameController = TextEditingController();
-
   bool _isEditing = false;
+
+  final TeamViewModel _teamViewModel = TeamViewModel();
+  late TextEditingController _teamNameController;
 
   @override
   void initState() {
     super.initState();
-    // Initialize the controller with the initial team name
-    _teamNameController = TextEditingController(text: _teamName);
+    _teamViewModel.loadUserDataAndTeamData().then((_) {
+      _teamNameController =
+          TextEditingController(text: _teamViewModel.teamName);
+    });
   }
 
   @override
@@ -40,59 +41,71 @@ class _TeamPageState extends State<TeamPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(backgroundColor: Colors.blue),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body: FutureBuilder<void>(
+          future: _teamViewModel.loadUserDataAndTeamData(),
+          builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Column(
                 children: [
-                  const ProfilePicture(
-                    name: 'User 1',
-                    role: 'Team Member',
-                    radius: 50,
-                    fontsize: 30,
-                    tooltip: true,
-                    img: imageUrl,
-                  ),
-                  teamNameWidget()
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Row(
-                children: [
-                  teamMemberListWidget(),
-                  teamMemberListWidget(),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 32.0),
-                  child: Text(
-                    'Orders',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                  Text(
+                      'User Team ID: ${_teamViewModel.userTeamID.toString() ?? "Not loaded"}'),
+                  Text('Team Name: ${_teamViewModel.teamName ?? "Not loaded"}'),
+                  Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const ProfilePicture(
+                          name: 'User 1',
+                          role: 'Team Member',
+                          radius: 50,
+                          fontsize: 30,
+                          tooltip: true,
+                          img: imageUrl,
+                        ),
+                        teamNameWidget()
+                      ],
                     ),
                   ),
-                ),
-                const Spacer(),
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const NotificationsPage())); //TODO: Change page to Add Order Page
-                  },
-                )
-              ],
-            ),
-            const Expanded(child: OrderCard())
-          ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Row(
+                      children: [
+                        teamMemberListWidget(),
+                        teamMemberListWidget(),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 32.0),
+                        child: Text(
+                          'Orders',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  const NotificationsPage())); //TODO: Change page to Add Order Page
+                        },
+                      )
+                    ],
+                  ),
+                  const Expanded(child: OrderCard())
+                ],
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ),
     );
@@ -117,9 +130,9 @@ class _TeamPageState extends State<TeamPage> {
                     icon: const Icon(Icons.save),
                     onPressed: () {
                       setState(() {
-                        _teamName = _teamNameController.text;
                         _isEditing = false;
                       });
+                      _teamViewModel.updateTeamName(_teamNameController.text);
                     },
                   )
                 ],
@@ -127,7 +140,7 @@ class _TeamPageState extends State<TeamPage> {
             : Row(
                 children: [
                   Text(
-                    _teamName,
+                    _teamViewModel.teamName ?? 'Not Initialized',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
