@@ -9,23 +9,15 @@ import 'package:app/features/announcements/announcements_page.dart';
 import 'package:app/features/blog/blog_page.dart';
 
 class AppRoutes {
-  static const String profile = '/profile';
-  static const String team = '/team';
-  static const String notifications = '/notifications';
-  static const String schedule = '/schedule';
-  static const String bookingStatus = '/booking_status';
-  static const String hardware = '/hardware';
-  static const String announcements = '/announcements';
-  static const String blog = '/blog';
 
   static Map<String, WidgetBuilder> routes = {
-    profile: (context) => const ProfilePage(),
-    team: (context) => const TeamPage(),
-    notifications: (context) => const NotificationsPage(),
-    schedule: (context) => const SchedulePage(),
-    bookingStatus: (context) => const BookingStatusPage(),
-    hardware: (context) => const HardwarePage(),
-    announcements: (context) => const AnnouncementsPage(),
-    blog: (context) => const BlogPage(),
+    ProfilePage.route: (context) => const ProfilePage(),
+    TeamPage.route: (context) => const TeamPage(),
+    NotificationsPage.route: (context) => const NotificationsPage(),
+    SchedulePage.route: (context) => const SchedulePage(),
+    BookingStatusPage.route: (context) => const BookingStatusPage(),
+    HardwarePage.route: (context) => const HardwarePage(),
+    AnnouncementsPage.route: (context) => const AnnouncementsPage(),
+    BlogPage.route: (context) => const BlogPage(),
   };
 }

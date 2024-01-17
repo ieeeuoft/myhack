@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
-
-
-
-
 class HardwarePage extends StatefulWidget {
   const HardwarePage({Key key = const Key('deafult_key')}) : super(key: key);
+  static const String route = '/hardware';
 
    @override
   _HardwarePageState createState() => _HardwarePageState();
@@ -26,7 +23,7 @@ class _HardwarePageState extends State<HardwarePage> {
       selectedIndex = index;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +66,7 @@ class _HardwarePageState extends State<HardwarePage> {
                               ? Colors.black
                               : Colors.transparent)
                     ),
-                  
+
                     child: Image.asset(
                       images[index],
                       width: 100,
@@ -110,24 +107,24 @@ class _HardwarePageState extends State<HardwarePage> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0,
-                      color: Colors.black, 
+                      color: Colors.black,
                     ),
                   ),
                   TextSpan(
                     text: 'Feature 1...\n',
-                    style: DefaultTextStyle.of(context).style, 
+                    style: DefaultTextStyle.of(context).style,
                   ),
                   const TextSpan(
                     text: '   • ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0,
-                      color: Colors.black, 
+                      color: Colors.black,
                     ),
                   ),
                   TextSpan(
                     text: 'Feature 2...\n',
-                    style: DefaultTextStyle.of(context).style, 
+                    style: DefaultTextStyle.of(context).style,
                   ),
                 ],
               ),

@@ -5,6 +5,7 @@ import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 
 class TeamPage extends StatefulWidget {
   const TeamPage({super.key});
+  static const String route = '/team';
 
   @override
   _TeamPageState createState() => _TeamPageState();

@@ -7,6 +7,7 @@ import 'package:app/core/models/user_model.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
+  static const String route = '/profile';
 
   @override
   Widget build(BuildContext context) {
