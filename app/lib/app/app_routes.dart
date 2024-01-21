@@ -1,3 +1,8 @@
+import 'dart:js';
+
+import 'package:app/features/authentication/sign_in_page.dart';
+import 'package:app/features/authentication/sign_up_page.dart';
+import 'package:app/features/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app/features/profile/profile_page.dart';
 import 'package:app/features/team/team_page.dart';
@@ -11,6 +16,9 @@ import 'package:app/features/blog/blog_page.dart';
 class AppRoutes {
 
   static Map<String, WidgetBuilder> routes = {
+    HomePage.route: (context) => const HomePage(),
+    SignInPage.route: (context) => const SignInPage(),
+    SignUpPage.route: (context) => const SignUpPage(),
     ProfilePage.route: (context) => const ProfilePage(),
     TeamPage.route: (context) => const TeamPage(),
     NotificationsPage.route: (context) => const NotificationsPage(),

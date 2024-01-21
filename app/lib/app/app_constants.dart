@@ -15,4 +15,7 @@ class AppConstants {
 
   // API Endpoints
   static const String apiBaseUrl = 'https://api.yourserver.com';
+
+
+  static const String userCollection = 'users';
 }

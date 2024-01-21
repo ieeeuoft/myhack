@@ -1,4 +1,7 @@
-import 'package:app/profile_page.dart';
+import 'package:app/app/app_routes.dart';
+import 'package:app/app/global_service.dart';
+import 'package:app/features/authentication/sign_up_page.dart';
+import 'package:app/features/profile/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:app/account/resources/custom_colors.dart';
@@ -6,13 +9,39 @@ import 'package:app/account/utils/authentication.dart';
 import 'package:app/features/authentication/widgets/google_sign_in_button.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+  const SignInPage({super.key, this.targetRoute});
+  static const String route = '/signin';
+  final String? targetRoute;
 
   @override
   SignInPageState createState() => SignInPageState();
 }
 
 class SignInPageState extends State<SignInPage> {
+  @override
+  void initState() {
+    super.initState();
+    Authentication.initializeFirebase();
+  }
+
+  void onSignInSuccess() {
+    String route = widget.targetRoute ?? ProfilePage.route;
+    Navigator.of(context).pushReplacementNamed(route);
+  }
+
+  void handleSignIn() async {
+    final user = await Authentication.signInWithGoogle(context: context);
+    GlobalUserService().updateUser(user);
+    if (user != null) {
+      final isRegistered = await Authentication.isUserRegistered(user.uid);
+      if (isRegistered) {
+        onSignInSuccess();
+      } else {
+        Navigator.of(context).pushReplacementNamed(SignUpPage.route);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,72 +55,20 @@ class SignInPageState extends State<SignInPage> {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Image.asset(
-                        'assets/firebase_logo.png',
-                        height: 160,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'FlutterFire',
-                      style: TextStyle(
-                        color: CustomColors.firebaseYellow,
-                        fontSize: 40,
-                      ),
-                    ),
-                    const Text(
-                      'Authentication',
-                      style: TextStyle(
-                        color: CustomColors.firebaseOrange,
-                        fontSize: 40,
-                      ),
-                    ),
-                  ],
-                ),
+              Image.asset('assets/firebase_logo.png', height: 160),
+              const SizedBox(height: 20),
+              const Text(
+                'FlutterFire',
+                style: TextStyle(color: CustomColors.firebaseYellow, fontSize: 40),
               ),
-              FutureBuilder(
-                future: Authentication.initializeFirebase(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return const Text('Error initializing Firebase');
-                  } else if (snapshot.connectionState == ConnectionState.done) {
-                    return StreamBuilder(
-                      stream: FirebaseAuth.instance.authStateChanges(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          final user = snapshot.data;
-                          if (user != null) {
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => ProfilePage(
-                                    user: user,
-                                  ),
-                                ),
-                              );
-                            });
-                          }
-                        }
-                        return const GoogleSignInButton();
-                      },
-                    );
-                  }
-                  return const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      CustomColors.firebaseOrange,
-                    ),
-                  );
-                },
-              )
+              const Text(
+                'Authentication',
+                style: TextStyle(color: CustomColors.firebaseOrange, fontSize: 40),
+              ),
+              const SizedBox(height: 20),
+              GoogleSignInButton(onPressed: handleSignIn),
             ],
           ),
         ),

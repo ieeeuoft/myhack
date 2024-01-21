@@ -1,7 +1,6 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/material.dart';
 // import 'package:app/account/resources/custom_colors.dart';
-// import 'package:app/account/utils/authentication.dart';
 // import 'package:app/account/widgets/app_bar_title.dart';
 //
 // class UserInfoScreen extends StatefulWidget {
