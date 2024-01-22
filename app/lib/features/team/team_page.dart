@@ -17,14 +17,11 @@ class _TeamPageState extends State<TeamPage> {
 
   final TeamViewModel _teamViewModel = TeamViewModel();
   late TextEditingController _teamNameController;
-
   @override
   void initState() {
     super.initState();
-    _teamViewModel.loadUserDataAndTeamData().then((_) {
-      _teamNameController =
-          TextEditingController(text: _teamViewModel.teamName);
-    });
+
+    _teamNameController = TextEditingController(text: _teamViewModel.teamName);
   }
 
   @override
@@ -50,13 +47,15 @@ class _TeamPageState extends State<TeamPage> {
                   Text(
                       'User Team ID: ${_teamViewModel.userTeamID.toString() ?? "Not loaded"}'),
                   Text('Team Name: ${_teamViewModel.teamName ?? "Not loaded"}'),
+                  Text(
+                      'Current User Name: ${_teamViewModel.currentUserName ?? "Not loaded"}'),
                   Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const ProfilePicture(
-                          name: 'User 1',
+                        ProfilePicture(
+                          name: _teamViewModel.currentUserName ?? 'Not loaded',
                           role: 'Team Member',
                           radius: 50,
                           fontsize: 30,
@@ -71,8 +70,8 @@ class _TeamPageState extends State<TeamPage> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Row(
                       children: [
-                        teamMemberListWidget(),
-                        teamMemberListWidget(),
+                        for (var name in _teamViewModel.participantNames)
+                          teamMemberListWidget(name),
                       ],
                     ),
                   ),
@@ -158,7 +157,7 @@ class _TeamPageState extends State<TeamPage> {
               ));
   }
 
-  Widget teamMemberListWidget() {
+  Widget teamMemberListWidget(String memberName) {
     return Row(
       children: [
         Container(
@@ -182,9 +181,9 @@ class _TeamPageState extends State<TeamPage> {
               ),
               const SizedBox(
                   width: 5), // Adjust the spacing between the image and text
-              const Text(
-                'User 2',
-                style: TextStyle(
+              Text(
+                memberName,
+                style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 15,
                   color: Colors.white, // Adjust the text color

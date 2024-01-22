@@ -10,7 +10,15 @@ class TeamViewModel with ChangeNotifier {
   int? get userTeamID => _userTeamID;
 
   String? _teamName;
+
   String? get teamName => _teamName;
+
+  String? _currentUserName;
+  String? get currentUserName => _currentUserName;
+
+  List<String> _participantNames = [];
+  List<String> get participantNames => _participantNames;
+
   Future<void> loadUserData() async {
     try {
       if (_user != null) {
@@ -19,7 +27,9 @@ class TeamViewModel with ChangeNotifier {
 
         // Query to filter documents based on memberID
         QuerySnapshot querySnapshot = await participantsCollection
-            .where('memberID', isEqualTo: _user?.uid)
+            .where('memberID',
+                isEqualTo:
+                    FirebaseFirestore.instance.doc('/users/${_user?.uid}'))
             .get();
 
         // Check if any documents match the query
@@ -34,6 +44,7 @@ class TeamViewModel with ChangeNotifier {
           // Access the 'teamID' field
           _userTeamID = participantData['teamID'];
           print('User team ID: $_userTeamID');
+
           notifyListeners();
         }
       }
@@ -58,6 +69,42 @@ class TeamViewModel with ChangeNotifier {
               teamDocument.data() as Map<String, dynamic>;
 
           _teamName = teamData['teamName'];
+          // List<String> participants =
+          //     List<String>.from(teamData['participants']);
+          List<DocumentReference> participantRefs =
+              List<DocumentReference>.from(teamData['participants']);
+
+          for (var ref in participantRefs) {
+            DocumentSnapshot docSnapshot = await ref.get();
+            if (docSnapshot.exists) {
+              // Assuming 'memberID' is the field containing the user document reference
+              DocumentReference memberIDRef =
+                  (docSnapshot.data() as Map<String, dynamic>)['memberID'];
+              // Fetching the user document using memberIDRef
+              DocumentSnapshot userSnapshot = await memberIDRef.get();
+              if (userSnapshot.exists) {
+                if (userSnapshot.id == _user?.uid) {
+                  _currentUserName =
+                      (userSnapshot.data() as Map<String, dynamic>)['name'];
+                } else {
+                  // Replace "Name" with the actual field name in your user documents
+                  // Consider modifying to add pictures as a tuple
+                  String name =
+                      (userSnapshot.data() as Map<String, dynamic>)['name'];
+                  _participantNames.add(name);
+                }
+              } else {
+                print(
+                    'User document not found for reference: ${memberIDRef.path}');
+              }
+            } else {
+              print(
+                  'Participant document not found for reference: ${ref.path}');
+            }
+          }
+          print('participants names $_participantNames');
+          print('Current user name $_currentUserName');
+
           print('Team name: $_teamName');
           notifyListeners();
         }
