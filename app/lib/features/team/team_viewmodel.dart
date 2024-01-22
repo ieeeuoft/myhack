@@ -69,43 +69,29 @@ class TeamViewModel with ChangeNotifier {
               teamDocument.data() as Map<String, dynamic>;
 
           _teamName = teamData['teamName'];
-          // List<String> participants =
-          //     List<String>.from(teamData['participants']);
           List<DocumentReference> participantRefs =
               List<DocumentReference>.from(teamData['participants']);
 
           for (var ref in participantRefs) {
             DocumentSnapshot docSnapshot = await ref.get();
             if (docSnapshot.exists) {
-              // Assuming 'memberID' is the field containing the user document reference
               DocumentReference memberIDRef =
                   (docSnapshot.data() as Map<String, dynamic>)['memberID'];
-              // Fetching the user document using memberIDRef
               DocumentSnapshot userSnapshot = await memberIDRef.get();
               if (userSnapshot.exists) {
                 if (userSnapshot.id == _user?.uid) {
                   _currentUserName =
                       (userSnapshot.data() as Map<String, dynamic>)['name'];
                 } else {
-                  // Replace "Name" with the actual field name in your user documents
                   // Consider modifying to add pictures as a tuple
                   String name =
                       (userSnapshot.data() as Map<String, dynamic>)['name'];
                   _participantNames.add(name);
                 }
-              } else {
-                print(
-                    'User document not found for reference: ${memberIDRef.path}');
               }
-            } else {
-              print(
-                  'Participant document not found for reference: ${ref.path}');
             }
           }
-          print('participants names $_participantNames');
-          print('Current user name $_currentUserName');
 
-          print('Team name: $_teamName');
           notifyListeners();
         }
       }
@@ -134,10 +120,6 @@ class TeamViewModel with ChangeNotifier {
           // Update the local variable as well
           _teamName = newTeamName;
           notifyListeners();
-
-          print('Team name updated successfully: $_teamName');
-        } else {
-          print('No team found with the specified teamID: $userTeamID');
         }
       }
     } catch (error) {

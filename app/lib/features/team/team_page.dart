@@ -44,11 +44,6 @@ class _TeamPageState extends State<TeamPage> {
             if (snapshot.connectionState == ConnectionState.done) {
               return Column(
                 children: [
-                  Text(
-                      'User Team ID: ${_teamViewModel.userTeamID.toString() ?? "Not loaded"}'),
-                  Text('Team Name: ${_teamViewModel.teamName ?? "Not loaded"}'),
-                  Text(
-                      'Current User Name: ${_teamViewModel.currentUserName ?? "Not loaded"}'),
                   Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: Row(
@@ -162,35 +157,30 @@ class _TeamPageState extends State<TeamPage> {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-                20), // Adjust the radius to shape the pill
-            color: Colors.blue, // Change the background color as needed
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.blue,
           ),
           child: Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    20), // Should match the container's radius
+                borderRadius: BorderRadius.circular(20),
                 child: Image.network(
                   "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg",
-                  width: 40, // Set the desired width
-                  height: 40, // Set the desired height
-                  fit: BoxFit
-                      .cover, // Adjust the fit as needed (cover, contain, etc.)
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(
-                  width: 5), // Adjust the spacing between the image and text
+              const SizedBox(width: 5),
               Text(
                 memberName,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 15,
-                  color: Colors.white, // Adjust the text color
+                  color: Colors.white,
                 ),
               ),
-              const SizedBox(
-                  width: 10), // Adjust the spacing between the image and text
+              const SizedBox(width: 10),
             ],
           ),
         ),
