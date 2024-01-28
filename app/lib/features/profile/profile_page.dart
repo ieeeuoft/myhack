@@ -1,13 +1,6 @@
-import 'package:app/features/authentication/sign_in_page.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../app/global_service.dart';
-import 'profile_viewmodel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:app/core/models/user_model.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

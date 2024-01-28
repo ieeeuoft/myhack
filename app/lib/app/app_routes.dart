@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:app/features/authentication/sign_in_page.dart';
 import 'package:app/features/authentication/sign_up_page.dart';
 import 'package:app/features/home/home_page.dart';
