@@ -1,8 +1,6 @@
-import 'package:app/app/app_routes.dart';
 import 'package:app/app/global_service.dart';
 import 'package:app/features/authentication/sign_up_page.dart';
 import 'package:app/features/profile/profile_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:app/account/resources/custom_colors.dart';
 import 'package:app/account/utils/authentication.dart';

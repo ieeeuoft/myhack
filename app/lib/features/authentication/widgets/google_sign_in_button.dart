@@ -1,6 +1,4 @@
-import 'package:app/features/authentication/sign_up_page.dart';
 import 'package:flutter/material.dart';
-import 'package:app/account/utils/authentication.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   final VoidCallback onPressed;

@@ -1,11 +1,9 @@
-import 'package:app/features/authentication/sign_in_page.dart';
 import 'package:app/page_viewer.dart';
 import 'package:app/app/app_routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'app/global_service.dart';
-import 'core/api/firebase_api.dart';
 import 'firebase_options.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
