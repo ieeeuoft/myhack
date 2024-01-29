@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:app/features/profile/profile_page.dart';
 
 import '../../core/models/user_model.dart';
 
@@ -64,7 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   signUp();
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const HomePage(),
+                      builder: (context) => const ProfilePage(),
                     ),
                   );
                 }

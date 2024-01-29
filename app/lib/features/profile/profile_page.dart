@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:app/features/profile/profile_widget.dart';
 import 'edit_profile.dart';
 
+import 'package:firebase_database/firebase_database.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
   static const String route = '/profile';
@@ -108,13 +110,23 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   DocumentSnapshot? userData;
 
-  void editProfile() {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User user = auth.currentUser!;
+  void editProfile () async {
+    var user = GlobalUserService().currentUser;
+    if (user == null) return;
+
+    DocumentSnapshot result = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    setState(() {
+      userData = result;
+    });
+
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
-        builder: (ctx) => EditProfile(user: user));
+        builder: (ctx) => EditProfile(user: result));
   }
 
   @override
@@ -161,8 +173,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       isEdit: false,
                     ),
                     const SizedBox(height: 20),
-                    Text(user!.displayName.toString()),
-                    Text(user!.email.toString()),
+                    Text(userData!['name'].toString()),
+                    Text(userData!['email'].toString()),
+                    Text(userData!['program'].toString()),
+                    Text(userData!['school'].toString()),
+                    Text(userData!['year'].toString()),
 
                     ElevatedButton(
                         onPressed: editProfile, child: const Text('Edit'))

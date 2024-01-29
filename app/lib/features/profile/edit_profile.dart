@@ -1,10 +1,12 @@
+import 'package:app/core/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'profile_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key, required this.user});
-  final User user;
+  final DocumentSnapshot user;
 
   @override
   State<StatefulWidget> createState() {
@@ -15,17 +17,26 @@ class EditProfile extends StatefulWidget {
 class _EditProfile extends State<EditProfile> {
   TextEditingController? userNameController;
   TextEditingController? emailController;
+  TextEditingController? programController;
+  TextEditingController? schoolController;
+  TextEditingController? yearController;
 
   @override
   void initState() {
     super.initState();
-    userNameController = TextEditingController(text: widget.user.displayName);
-    emailController = TextEditingController(text: widget.user.email);
+    userNameController = TextEditingController(text: widget.user['name']);
+    emailController = TextEditingController(text: widget.user['email']);
+    programController = TextEditingController(text: widget.user['school']);
+    schoolController = TextEditingController(text: widget.user['program']);
+    yearController = TextEditingController(text: widget.user['year']);
   }
 
   void saveData() {
     if (userNameController!.text.trim().isEmpty ||
-        emailController!.text.trim().isEmpty) {
+        emailController!.text.trim().isEmpty || 
+        programController!.text.trim().isEmpty ||
+        schoolController!.text.trim().isEmpty ||
+        yearController!.text.trim().isEmpty) {
       showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
@@ -42,8 +53,8 @@ class _EditProfile extends State<EditProfile> {
               ));
       return;
     }
-    widget.user.updateDisplayName(userNameController!.text);
-    widget.user.updateEmail(emailController!.text);
+    //widget.user.updateDisplayName(userNameController!.text);
+    //widget.user.updateEmail(emailController!.text);
     Navigator.pop(context);
   }
 
@@ -51,6 +62,9 @@ class _EditProfile extends State<EditProfile> {
   void dispose() {
     userNameController?.dispose();
     emailController?.dispose();
+    schoolController?.dispose();
+    programController?.dispose();
+    yearController?.dispose();
     super.dispose();
   }
 
@@ -87,6 +101,36 @@ class _EditProfile extends State<EditProfile> {
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
                 label: Text('Email'),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12))),
+          ),
+          const SizedBox(height: 30),
+          TextField(
+            controller: schoolController,
+            maxLength: 30,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                label: Text('School'),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12))),
+          ),
+          const SizedBox(height: 30),
+          TextField(
+            controller: programController,
+            maxLength: 30,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                label: Text('Program'),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12))),
+          ),
+          const SizedBox(height: 10),
+          TextField(
+            controller: yearController,
+            maxLength: 30,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                label: Text('Year'),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12))),
           ),
