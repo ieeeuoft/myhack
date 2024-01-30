@@ -26,14 +26,14 @@ class _EditProfile extends State<EditProfile> {
     super.initState();
     userNameController = TextEditingController(text: widget.user['name']);
     emailController = TextEditingController(text: widget.user['email']);
-    programController = TextEditingController(text: widget.user['school']);
-    schoolController = TextEditingController(text: widget.user['program']);
+    programController = TextEditingController(text: widget.user['program']);
+    schoolController = TextEditingController(text: widget.user['school']);
     yearController = TextEditingController(text: widget.user['year']);
   }
 
   void saveData() {
     if (userNameController!.text.trim().isEmpty ||
-        emailController!.text.trim().isEmpty || 
+        emailController!.text.trim().isEmpty ||
         programController!.text.trim().isEmpty ||
         schoolController!.text.trim().isEmpty ||
         yearController!.text.trim().isEmpty) {
@@ -53,8 +53,13 @@ class _EditProfile extends State<EditProfile> {
               ));
       return;
     }
-    //widget.user.updateDisplayName(userNameController!.text);
-    //widget.user.updateEmail(emailController!.text);
+
+    widget.user.reference.update({'name': userNameController!.text});
+    widget.user.reference.update({'email': emailController!.text});
+    widget.user.reference.update({'school': schoolController!.text});
+    widget.user.reference.update({'program': programController!.text});
+    widget.user.reference.update({'year': yearController!.text});
+
     Navigator.pop(context);
   }
 
@@ -106,21 +111,21 @@ class _EditProfile extends State<EditProfile> {
           ),
           const SizedBox(height: 30),
           TextField(
-            controller: schoolController,
-            maxLength: 30,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                label: Text('School'),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12))),
-          ),
-          const SizedBox(height: 30),
-          TextField(
             controller: programController,
             maxLength: 30,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
                 label: Text('Program'),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12))),
+          ),
+          const SizedBox(height: 30),
+          TextField(
+            controller: schoolController,
+            maxLength: 30,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                label: Text('School'),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12))),
           ),
