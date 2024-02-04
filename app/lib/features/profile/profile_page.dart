@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:app/features/profile/profile_widget.dart';
 import 'edit_profile.dart';
+import 'field_style.dart';
 
 import 'package:firebase_database/firebase_database.dart';
 
@@ -13,104 +14,12 @@ class ProfilePage extends StatefulWidget {
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
-  // @override
-  // Widget build(BuildContext context) {
-  //   return StreamBuilder<User?>(
-  //     stream: FirebaseAuth.instance.authStateChanges(),
-  //     builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
-  //       if (snapshot.connectionState == ConnectionState.active) {
-  //         User? user = snapshot.data;
-  //         if (user == null) {
-  //           return Center(
-  //             child: ElevatedButton(
-  //               onPressed: () {
-  //                 Navigator.push(
-  //                   context,
-  //                   MaterialPageRoute(builder: (context) => const SignInPage()),
-  //                 );
-  //               },
-  //               child: const Text('Go to Login'),
-  //             ),
-  //           );
-  //         } else {
-  //           return ChangeNotifierProvider<ProfileViewModel>(
-  //             create: (context) => ProfileViewModel(),
-  //             child: Scaffold(
-  //               appBar: AppBar(
-  //                 title: const Text('Profile'),
-  //               ),
-  //               body: Center(
-  //                 child: Column(
-  //                   mainAxisAlignment: MainAxisAlignment.center,
-  //                   children: [
-  //                     const Text('User Name:'),
-  //                     Consumer<ProfileViewModel>(
-  //                       builder: (context, viewModel, child) {
-  //                         return Text(
-  //                           viewModel.userModel?.name ?? 'Loading...',
-  //                           style: const TextStyle(fontSize: 24),
-  //                         );
-  //                       },
-  //                     ),
-  //                     Builder(
-  //                       builder: (context) {
-  //                         return ElevatedButton(
-  //                           onPressed: () {
-  //                             Provider.of<ProfileViewModel>(context,
-  //                                     listen: false)
-  //                                 .updateUserName('Jane Doe');
-  //                           },
-  //                           child: const Text('Change Name'),
-  //                         );
-  //                       },
-  //                     ),
-  //                     Builder(builder: (context) {
-  //                       return ElevatedButton(
-  //                         // Add User Button
-  //                         onPressed: () {
-  //                           UserModel newUser = UserModel(
-  //                             id: user.uid,
-  //                             name: 'Dummy Name',
-  //                             email: 'dummy@email.com',
-  //                             program: 'Dummy Program',
-  //                             school: 'Dummy School',
-  //                             year: 'Dummy Year',
-  //                           );
-  //                           Provider.of<ProfileViewModel>(context,
-  //                                   listen: false)
-  //                               .addUser(newUser);
-  //                         },
-  //                         child: const Text('Add User'),
-  //                       );
-  //                     }),
-  //                     Builder(builder: (context) {
-  //                       return ElevatedButton(
-  //                         // Delete User Button
-  //                         onPressed: () {
-  //                           Provider.of<ProfileViewModel>(context,
-  //                                   listen: false)
-  //                               .deleteUser();
-  //                         },
-  //                         child: const Text('Delete User'),
-  //                       );
-  //                     })
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //           );
-  //         }
-  //       }
-  //       return const CircularProgressIndicator(); // Show a progress indicator while waiting
-  //     },
-  //   );
-  // }
 }
 
 class _ProfilePageState extends State<ProfilePage> {
   DocumentSnapshot? userData;
 
-  void editProfile () async {
+  void editProfile() async {
     var user = GlobalUserService().currentUser;
     if (user == null) return;
 
@@ -160,31 +69,107 @@ class _ProfilePageState extends State<ProfilePage> {
     var user = GlobalUserService().currentUser;
 
     return Scaffold(
-                appBar: AppBar(
-                  title: const Text('Profile'),
+      appBar: AppBar(
+        title: const Text('Profile'),
+      ),
+      body: Center(
+        child: ListView(children: [
+          const SizedBox(height: 30),
+          ProfileWidget(
+            imagePath:
+                'https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
+            onClicked: editProfile,
+            isEdit: false,
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+            child: Column(
+              children: [
+                ProfileStyle(
+                  icon: const Icon(
+                    Icons.account_circle,
+                    size: 40,
+                  ),
+                  text: "Name: ${userData!['name'].toString()}",
                 ),
-                body: Center(
-                  child: ListView(children: [
-                    const SizedBox(height: 30),
-                    ProfileWidget(
-                      imagePath:
-                          'https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-                      onClicked: editProfile,
-                      isEdit: false,
-                    ),
-                    const SizedBox(height: 20),
-                    Text(userData!['name'].toString()),
-                    Text(userData!['email'].toString()),
-                    Text(userData!['program'].toString()),
-                    Text(userData!['school'].toString()),
-                    Text(userData!['year'].toString()),
+                const Divider(
+                  color: Colors.grey,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ProfileStyle(
+                  icon: const Icon(
+                    Icons.email,
+                    size: 45,
+                  ),
+                  text: "Email: ${userData!['email'].toString()}",
+                ),
+                const Divider(
+                  color: Colors.grey,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ProfileStyle(
+                  icon: const Icon(
+                    Icons.category,
+                    size: 45,
+                  ),
+                  text: "Program: ${userData!['program'].toString()}",
+                ),
+                const Divider(
+                  color: Colors.grey,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ProfileStyle(
+                  icon: const Icon(
+                    Icons.school,
+                    size: 45,
+                  ),
+                  text: "School: ${userData!['school'].toString()}",
+                ),
+                const Divider(
+                  color: Colors.grey,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ProfileStyle(
+                  icon: const Icon(
+                    Icons.calculate_outlined,
+                    size: 45,
+                  ),
+                  text: "Year: ${userData!['year'].toString()}",
+                ),
+                const Divider(
+                  color: Colors.grey,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(100, 20, 100, 20),
+            child: ElevatedButton(
+              onPressed: editProfile,
+              child: const Text('Edit'),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.blue),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+        ]
 
-                    ElevatedButton(
-                        onPressed: editProfile, child: const Text('Edit'))
-                    //Text(user.school.toString()),
-                  ]
-
-                      /*mainAxisAlignment: MainAxisAlignment.center,
+            /*mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('User Name:'),
                       Consumer<ProfileViewModel>(
@@ -238,9 +223,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         );
                       })
                     ],*/
-                      ),
-                ),
-              );
+            ),
+      ),
+    );
   }
 }
-

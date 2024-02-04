@@ -60,7 +60,8 @@ class _EditProfile extends State<EditProfile> {
     widget.user.reference.update({'program': programController!.text});
     widget.user.reference.update({'year': yearController!.text});
 
-    Navigator.pop(context);
+    Navigator.pushReplacementNamed(context, '/profile');
+    dispose();
   }
 
   @override
