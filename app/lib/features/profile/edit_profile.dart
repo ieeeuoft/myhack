@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'profile_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key, required this.user});
   final DocumentSnapshot user;
@@ -74,6 +75,8 @@ class _EditProfile extends State<EditProfile> {
     super.dispose();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +90,7 @@ class _EditProfile extends State<EditProfile> {
           ProfileWidget(
             imagePath:
                 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-            onClicked: () async {},
+            onClicked: (){},
             isEdit: true,
           ),
           const SizedBox(height: 30),

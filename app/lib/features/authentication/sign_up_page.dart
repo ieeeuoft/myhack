@@ -24,6 +24,8 @@ class _SignUpPageState extends State<SignUpPage> {
   String school = '';
   String program = '';
   String year = '';
+  String profile_url =
+      "https://firebasestorage.googleapis.com/v0/b/myhack-ieee.appspot.com/o/Image%2Fdefault_profile.png?alt=media&token=52df3516-c076-4a33-9566-47a155c33ceb";
 
   @override
   void initState() {
@@ -65,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   signUp();
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const ProfilePage(),
+                      builder: (context) => const HomePage(),
                     ),
                   );
                 }
@@ -80,7 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void signUp() async {
     try {
       var user = GlobalUserService().currentUser;
-      assert (user != null);
+      assert(user != null);
       UserModel userModel = UserModel(
         id: user!.uid,
         name: name,
@@ -88,6 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
         program: program,
         school: school,
         year: year,
+        profile_url: profile_url,
       );
       await addUser(user, userModel);
       Fluttertoast.showToast(msg: "Sign Up Successful");
@@ -105,10 +108,12 @@ class _SignUpPageState extends State<SignUpPage> {
         .get();
 
     if (userDoc.exists) {
-      throw Exception('user with ID $uid and Email ${user.email} already exists!');
+      throw Exception(
+          'user with ID $uid and Email ${user.email} already exists!');
     }
-      await FirebaseFirestore.instance.collection(AppConstants.userCollection)
-          .doc(uid)
-          .set(userModel.toDocument());
+    await FirebaseFirestore.instance
+        .collection(AppConstants.userCollection)
+        .doc(uid)
+        .set(userModel.toDocument());
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends StatefulWidget {
   const ProfileWidget(
       {super.key,
       required this.imagePath,
@@ -11,9 +12,15 @@ class ProfileWidget extends StatelessWidget {
   final VoidCallback onClicked;
   final bool isEdit;
 
+  @override
+  State<ProfileWidget> createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> {
+  ImageProvider? profile_image;
+
   Widget buildImage(imagePath) {
     final image = NetworkImage(imagePath);
-
     return ClipOval(
       child: Material(
         color: Colors.transparent,
@@ -23,7 +30,7 @@ class ProfileWidget extends StatelessWidget {
           width: 128,
           height: 128,
           child: InkWell(
-            onTap: onClicked,
+            onTap: widget.onClicked,
           ),
         ),
       ),
@@ -38,10 +45,16 @@ class ProfileWidget extends StatelessWidget {
             child: Container(
               color: Colors.blue,
               padding: const EdgeInsets.all(10),
-              child: Icon(
-                isEdit ? Icons.add_a_photo : Icons.edit,
-                size: 20,
-              ),
+              child: SizedBox(
+                  height: 18,
+                  width: 18,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.edit,
+                      size: 20,
+                    ),
+                    onPressed: widget.onClicked,
+                  )),
             ),
           ),
         ),
@@ -51,7 +64,7 @@ class ProfileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Stack(children: [
-        buildImage(imagePath),
+        buildImage(widget.imagePath),
         Positioned(
           bottom: 0,
           right: 4,
